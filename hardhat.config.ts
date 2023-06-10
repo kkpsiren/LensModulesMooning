@@ -65,6 +65,10 @@ const config: HardhatUserConfig = {
     ],
   },
   networks: {
+    scrollTestnet: {
+      url: process.env.SCROLL_TESTNET_URL || '',
+      accounts: process.env.MNEMONIC !== undefined ? [process.env.MNEMONIC] : [],
+    },
     kovan: getCommonNetworkConfig(eEthereumNetwork.kovan, 42),
     ropsten: getCommonNetworkConfig(eEthereumNetwork.ropsten, 3),
     main: getCommonNetworkConfig(eEthereumNetwork.main, 1),

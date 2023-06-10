@@ -13,6 +13,7 @@ import {
   FollowerOnlyReferenceModule__factory,
   FollowNFT__factory,
   InteractionLogic__factory,
+  IncrementingFeeCollectModule__factory,
   LimitedFeeCollectModule__factory,
   LimitedTimedFeeCollectModule__factory,
   ModuleGlobals__factory,
@@ -55,8 +56,8 @@ task('full-deploy-verify', 'deploys the entire Lens Protocol with explorer verif
     const ethers = hre.ethers;
     const accounts = await ethers.getSigners();
     const deployer = accounts[0];
-    const governance = accounts[1];
-    const treasuryAddress = accounts[2].address;
+    const governance = accounts[0];
+    const treasuryAddress = accounts[0].address;
     const proxyAdminAddress = deployer.address;
     const profileCreatorAddress = deployer.address;
 
@@ -175,6 +176,18 @@ task('full-deploy-verify', 'deploys the entire Lens Protocol with explorer verif
       [lensHub.address, moduleGlobals.address],
       'contracts/core/modules/collect/FeeCollectModule.sol:FeeCollectModule'
     );
+    console.log('\n\t-- Deploying incrementingFeeCollectModule --');
+    const incrementingFeeCollectModule = await deployWithVerify(
+      new IncrementingFeeCollectModule__factory(deployer).deploy(
+        lensHub.address,
+        moduleGlobals.address,
+        {
+          nonce: deployerNonce++,
+        }
+      ),
+      [lensHub.address, moduleGlobals.address],
+      'contracts/core/modules/collect/incrementingFeeCollectModule.sol:incrementingFeeCollectModule'
+    );
     console.log('\n\t-- Deploying limitedFeeCollectModule --');
     const limitedFeeCollectModule = await deployWithVerify(
       new LimitedFeeCollectModule__factory(deployer).deploy(
@@ -290,6 +303,11 @@ task('full-deploy-verify', 'deploys the entire Lens Protocol with explorer verif
       lensHub.whitelistCollectModule(feeCollectModule.address, true, { nonce: governanceNonce++ })
     );
     await waitForTx(
+      lensHub.whitelistCollectModule(incrementingFeeCollectModule.address, true, {
+        nonce: governanceNonce++,
+      })
+    );
+    await waitForTx(
       lensHub.whitelistCollectModule(limitedFeeCollectModule.address, true, {
         nonce: governanceNonce++,
       })
@@ -359,6 +377,7 @@ task('full-deploy-verify', 'deploys the entire Lens Protocol with explorer verif
       'lens periphery': lensPeriphery.address,
       'module globals': moduleGlobals.address,
       'fee collect module': feeCollectModule.address,
+      'incrementing fee collect module': incrementingFeeCollectModule.address,
       'limited fee collect module': limitedFeeCollectModule.address,
       'timed fee collect module': timedFeeCollectModule.address,
       'limited timed fee collect module': limitedTimedFeeCollectModule.address,
