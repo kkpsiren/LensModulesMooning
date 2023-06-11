@@ -30,13 +30,14 @@ struct ProfilePublicationData {
 }
 
 /**
- * @title FeeCollectModule
- * @author Lens Protocol
+ * @title IncrementingFeeCollectModule
+ * @author Kipto.lens
  *
  * @notice This is a simple Lens CollectModule implementation, inheriting from the ICollectModule interface and
  * the FeeCollectModuleBase abstract contract.
  *
- * This module works by allowing unlimited collects for a publication at a given price.
+ * This module works by allowing unlimited collects for a publication at a predetermined increasing price:
+ * collectPrice = originalPrice + nTimesCollected * increasePrice
  */
 contract IncrementingFeeCollectModule is FeeModuleBase, FollowValidationModuleBase, ICollectModule {
     using SafeERC20 for IERC20;
@@ -47,12 +48,13 @@ contract IncrementingFeeCollectModule is FeeModuleBase, FollowValidationModuleBa
     constructor(address hub, address moduleGlobals) FeeModuleBase(moduleGlobals) ModuleBase(hub) {}
 
     /**
-     * @notice This collect module levies a fee on collects and supports referrals. Thus, we need to decode data.
+     * @notice This collect module levies an increasing fee on collects and supports referrals. Thus, we need to decode data.
      *
      * @param profileId The token ID of the profile of the publisher, passed by the hub.
      * @param pubId The publication ID of the newly created publication, passed by the hub.
      * @param data The arbitrary data parameter, decoded into:
-     *      uint256 amount: The currency total amount to levy.
+     *      uint256 amount: The currency base amount to levy.
+     *      uint256 increaseAmount: The currency amount to be added to levy after new collect event.
      *      address currency: The currency address, must be internally whitelisted.
      *      address recipient: The custom recipient address to direct earnings to.
      *      uint16 referralFee: The referral fee to set.

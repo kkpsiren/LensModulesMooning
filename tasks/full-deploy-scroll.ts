@@ -42,8 +42,8 @@ task('full-deploy-scroll', 'deploys the entire Lens Protocol').setAction(async (
   const deployer = accounts[0];
   const governance = accounts[0];
   const treasuryAddress = accounts[0].address;
-  const proxyAdminAddress = deployer.address;
-  const profileCreatorAddress = deployer.address;
+  const proxyAdminAddress = '0xBAe434294f54e765230CF38091Dd322fCc8F52e8';
+  const profileCreatorAddress = '0xBAe434294f54e765230CF38091Dd322fCc8F52e8';
 
   // Nonce management in case of deployment issues
   let deployerNonce = await ethers.provider.getTransactionCount(deployer.address);

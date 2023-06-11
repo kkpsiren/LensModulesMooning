@@ -1,3 +1,56 @@
+
+LMM Lens Modules
+
+IncrementingFeeCollectModule
+
+Logic:
+```
+collectPrice = originalPrice + nTimesCollected * increasePrice
+```
+
+This is a simple Lens CollectModule implementation, inheriting from the ICollectModule interface and the FeeCollectModuleBase abstract contract.
+ 
+This module works by allowing unlimited collects for a publication at a predetermined increasing price:
+  
+
+
+To test this contracts were deployed the Lens Protocol Contracts on Scroll (note was not able to verify)
+
+```
+{
+"incrementing fee collect module": "0xEfaDe278Ed2DA4605D20C3AA15Ac3b7f1A51bAA1",
+
+  "lensHub proxy": "0x24D3D3b3a6C4C66B1cdc5641EcE76a1d03Fe75B5",
+  "lensHub impl:": "0x3a26260f8CdFE0dC80730cb307A2dBCA10789Dfa",
+  "publishing logic lib": "0x8670ee643D08A9cd5f9c85802536542672a4c446",
+  "interaction logic lib": "0x2F031B4BCEb6EDfDdcA898405570f184105106da",
+  "follow NFT impl": "0x7a84fc8f70a78dfd31953e5dd021bec381a50068",
+  "collect NFT impl": "0xd65a00ef5306db94824480934b03c2d8aa7f227b",
+  "currency": "0x385620eC57251941b5e9C23dD23281176eC1036b",
+  "lens periphery": "0x16f3d68223Ce11Ff1D822153b76Ef3Bed0a49f9c",
+  "module globals": "0x8A5A806baC78029809F42BCD56D0f2EfAc1b2ec3",
+  "fee collect module": "0x18d543CD9ca174866f9EC71C3c26961f9B326cb3",
+
+  "limited fee collect module": "0x003c392296389c69A5D9096012f3979548BcCb5F",
+  "timed fee collect module": "0xBd082c6727b78b38C4AE3d34999E4492F6252101",
+  "limited timed fee collect module": "0x68f591C51b384AD68EE8F60c4298bbA563625c77",
+  "revert collect module": "0x1d1835eC9056F7e48fAd6FCf21f55EA2E11F7a39",
+  "free collect module": "0x1601700Fab103942439fa463263AAF4EdAf51497",
+  "fee follow module": "0x62934De15372F6E17152f087594C4Df5b21F803B",
+  "profile follow module": "0x1cAc307B5C95251545925F271b18782e3CFa4b2b",
+  "revert follow module": "0x579325Aa9560eed2770852f105C814B1e1dD19F1",
+  "follower only reference module": "0x07ed8d033d0e5386a883FB3D41F4f582eEC77C45",
+  "UI data provider": "0x6aE6cc62e5B568330B473cbCd7F655e3d8D3778B",
+  "Profile creation proxy": "0x217fCcDed9d6d4ce16cfBA2f89FAcdA3c630daFb"
+}
+```
+
+
+
+
+
+
+
 ```                                                                                                                       
      &&&&&                        &&&&&&&&&&&&&&&&&&&&&&&&     &&&&&&&&&&              &&&&&         /&&&&&&&&&&&&&&&&&           
      &&&&&                        &&&&&&&&&&&&&&&&&&&&&&&&     &&&&  &&&&&             &&&&&       &&&&&&(        .&&&&&&*        
