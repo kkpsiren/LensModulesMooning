@@ -14,8 +14,8 @@ This module works by allowing unlimited collects for a publication at a predeter
   
 
 
-To test this contracts were deployed the Lens Protocol Contracts on Scroll (note was not able to verify)
-
+To test this contracts were deployed the Lens Protocol Contracts on Scroll (update verified!)
+ 
 ```
 {
 "incrementing fee collect module": "0xEfaDe278Ed2DA4605D20C3AA15Ac3b7f1A51bAA1",
